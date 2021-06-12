@@ -1,7 +1,20 @@
+import { useEffect } from 'react';
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
+
 function App() {
+
+  const getData = async () => {
+    const { data } = await axios.get('/api/sermons/get-all-sermons');
+    console.log(data);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
