@@ -64,6 +64,11 @@ module.exports = {
       return exits.nonSuccess(parsedPayload);
     }
 
+    if (!(parsedPayload instanceof Array)) {
+      sails.log(parsedPayload);
+      sails.log('Made into array');
+      parsedPayload = [parsedPayload];
+    }
     return exits.success(parsedPayload);
   }
 

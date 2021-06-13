@@ -20,5 +20,13 @@ module.exports.custom = {
   // …
   sermons: {
     host: 'https://hongkong.hmcc.net/wp-json/wp/v2/wpfc_sermon'
+  },
+
+  speakers: {
+    host: 'https://hongkong.hmcc.net/wp-json/wp/v2/wpfc_preacher'
+  },
+
+  sermonSeries: {
+    host: 'https://hongkong.hmcc.net/wp-json/wp/v2/wpfc_sermon_series'
   }
 };
