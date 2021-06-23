@@ -23,24 +23,34 @@ const transformSermon = (sermon, speakers, sermonSeries) => {
 };
 
 module.exports = {
+  
+  friendlyName: 'Get sermon by id',
 
-  friendlyName: 'Get all available Sermons',
+  description: 'Get sermon by id',
 
-  description: 'Get all available Sermons',
-
-  inputs: {},
+  inputs: {
+    id: {
+      required: true,
+      type: 'string',
+      description: 'Id of sermon'
+    }
+  },
 
   exits: {},
 
-  fn: async function(inputs, exits) {
-    sails.log.info(`Getting all sermons..`);
+  fn: async function({ id }, exits) {
+    sails.log.info(`Get sermon with id ${id}`);
 
     const url = sails.config.custom.sermons.host;
 
+    const sermonUrl = url + '/' + id.toString();
+
     try {
-      const data = await sails.helpers.getData(url);
+      const data = await sails.helpers.getData(sermonUrl);
       const speakerList = await sails.helpers.sermons.getSpeaker();
       const sermonSeries = await sails.helpers.sermons.getSermonSeries();
+
+      let array = [data];
       let transformedSermons = data.map((s) => transformSermon(s, speakerList, sermonSeries));
 
       return exits.success(transformedSermons);
@@ -49,5 +59,4 @@ module.exports = {
       return exits.success(err);
     }
   }
-
 };
